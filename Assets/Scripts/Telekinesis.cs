@@ -14,6 +14,9 @@ public class Telekinesis : MonoBehaviour
     private Rigidbody heldObjectRb;        // Rigidbody of the held object
     private bool isHolding;
 
+    private float originalScale;
+    private float originalMass;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Left mouse button for pickup
@@ -52,6 +55,8 @@ public class Telekinesis : MonoBehaviour
             heldObject = pickObj;
             isHolding = true;
             heldObjectRb = heldObject.GetComponent<Rigidbody>();
+            originalMass = heldObjectRb.mass;
+            originalScale = heldObject.transform.localScale.x;
             heldObjectRb.mass = 0.0001f;
 
             // Disable physics while holding
@@ -80,9 +85,13 @@ public class Telekinesis : MonoBehaviour
     {
         // Re-enable physics
         heldObjectRb.useGravity = true;
+        heldObjectRb.mass = originalMass *  (heldObject.transform.localScale.x / originalScale);
+        originalMass = 0;
+        originalScale = 0;
+
         heldObjectRb.drag = 1;
 
-        
+        heldObjectRb.velocity = Vector3.zero;
         heldObject = null;
         isHolding = false;
 
