@@ -4,77 +4,85 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     [SerializeField]
+    private float moveSpeed = 7f;
+
+    [SerializeField]
+    private float groundDrag = 0.8f;
+
+
+    [SerializeField]
+    private float playerHeight = 2f;
+    [SerializeField]
+    private LayerMask groundMask;
+    private bool isGrounded;
+
+
+    [SerializeField]
+    private Transform orientation;
+
+    private float horizontalInput;
+    private float verticalInput;
+
+    private Vector3 moveDirection;
+
     private Rigidbody rb;
-
-    [SerializeField]
-    private float speed = 5f;
-
-    [SerializeField]
-    private float jumpForce = 5f;
-
-    private bool isGrounded = true;
 
     private void Start()
     {
-        rb.interpolation = RigidbodyInterpolation.Interpolate;  // Enable interpolation to smooth movement
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
     }
 
     private void Update()
     {
-        // Handle jump in Update, but apply force in FixedUpdate for better timing
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, groundMask);
+
+        HandleInput();
+        LimitSpeed();
+
+        if (isGrounded)
         {
-            Jump();
+            rb.drag = groundDrag;
         }
+        else
+        {
+            rb.drag = 0;
+        }
+    }
+
+    private void HandleInput()
+    {
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
     }
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        Debug.Log(rb.velocity.magnitude);
+        MovePlayer();
+    }
 
-        if (Input.GetKeyDown(KeyCode.T))
+    private void MovePlayer()
+    {
+        //Reset the player's velocity to zero
+        rb.velocity = new Vector3(0, rb.velocity.y, 0);
+
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.VelocityChange);
+    }
+
+    private void LimitSpeed()
+    {
+        Vector3 flatVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+        if (flatVelocity.magnitude > moveSpeed)
         {
-            ApplyExplosionForce();
-        }
-
-    }
-
-    private void HandleMovement()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = moveHorizontal * transform.right + moveVertical * transform.forward;
-
-        // Move player using MovePosition for physics-based movement
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
-    }
-
-    private void Jump()
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        isGrounded = false;
-    }
-
-    private void ApplyExplosionForce()
-    {
-        rb.AddExplosionForce(50f, transform.position - transform.forward * 1f, 5f, 3f, ForceMode.Impulse);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
+            flatVelocity = flatVelocity.normalized * moveSpeed;
+            rb.velocity = new Vector3(flatVelocity.x, rb.velocity.y, flatVelocity.z);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
 }

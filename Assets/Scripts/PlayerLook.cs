@@ -8,31 +8,35 @@ public class PlayerLook : MonoBehaviour
     private float mouseSensitivity = 100f;
 
     [SerializeField]
-    private Transform playerBody;
+    private Transform orientation;
 
     private float xRotation = 0f;
+    private float yRotation = 0f;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         HandleMouseLook();
     }
 
     private void HandleMouseLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        yRotation += mouseX;
 
         xRotation -= mouseY;
+
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-
-        playerBody.Rotate(Vector3.up * mouseX);
-        transform.localRotation = Quaternion.Euler(xRotation, playerBody.eulerAngles.y, 0f);
+        
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
 
         Physics.SyncTransforms();
     }
