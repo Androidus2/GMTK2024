@@ -3,7 +3,32 @@ guid: ff1d5cab241dd4643b6ea293e3e88949
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cloak
+    second: {fileID: 2100000, guid: eab58c94d62ee9348a8651705a607b36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gem
+    second: {fileID: 2100000, guid: 40fd18cb257f153438902e64e09826c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gem2
+    second: {fileID: 2100000, guid: 56769eb2c52dc0148858cceef181ff9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ring
+    second: {fileID: 2100000, guid: f5b7869058c7f5549aeeff9517a99924, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin
+    second: {fileID: 2100000, guid: cac335a1b17c96e418f245826a27592d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

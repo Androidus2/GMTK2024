@@ -51,6 +51,11 @@ public class ScaleObjectGun : MonoBehaviour
                 ScaleObject scaleObject = hit.transform.GetComponent<ScaleObject>();
                 PerformScale(scaleObject);
             }
+            else if(anim.GetBool("Grow") || anim.GetBool("Shrink"))
+            {
+                anim.SetBool("Grow", false);
+                anim.SetBool("Shrink", false);
+            }
         }
     }
 
@@ -108,7 +113,8 @@ public class ScaleObjectGun : MonoBehaviour
     {
         Vector3 currentScale = scaleObject.transform.localScale;
         Vector3 originalScale = originalScales[obj];
-        float currentMass = scaleObject.GetComponent<Rigidbody>().mass;
+        Rigidbody holdRB = scaleObject.GetComponent<Rigidbody>();
+        float currentMass = holdRB.mass;
         float originalMass = originalMasses[obj];
         float elapsedTime = 0f;
 
@@ -119,13 +125,13 @@ public class ScaleObjectGun : MonoBehaviour
 
             // Interpolate scale and mass
             scaleObject.transform.localScale = Vector3.Lerp(currentScale, originalScale, t);
-            scaleObject.GetComponent<Rigidbody>().mass = Mathf.Lerp(currentMass, originalMass, t);
+            holdRB.mass = Mathf.Lerp(currentMass, originalMass, t);
 
             yield return null;
         }
 
         // Ensure final values are set
         scaleObject.transform.localScale = originalScale;
-        scaleObject.GetComponent<Rigidbody>().mass = originalMass;
+        holdRB.mass = originalMass;
     }
 }
