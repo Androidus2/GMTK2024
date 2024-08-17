@@ -12,6 +12,7 @@ public class Telekinesis : MonoBehaviour
 
 
     private GameObject heldObject;         // The object currently being held
+    private ScaleObject scaleObject;
     private Rigidbody heldObjectRb;        // Rigidbody of the held object
     private bool isHolding;
 
@@ -55,6 +56,7 @@ public class Telekinesis : MonoBehaviour
         if (pickObj.GetComponent<Rigidbody>())
         {
             heldObject = pickObj;
+            scaleObject = heldObject.GetComponent<ScaleObject>();
             isHolding = true;
             heldObjectRb = heldObject.GetComponent<Rigidbody>();
             originalMass = heldObjectRb.mass;
@@ -105,14 +107,20 @@ public class Telekinesis : MonoBehaviour
         heldObjectRb.freezeRotation = false;
     }
 
-    public bool getIsHolding() 
+    public bool GetIsHolding() 
     { 
         return isHolding;
     }
 
-    public GameObject getHeldObject()
+    public GameObject GetHeldObject()
     {
         return heldObject;
     }
+
+    public ScaleObject GetScaleObject()
+    {
+        return scaleObject;
+    }
+
 
 }

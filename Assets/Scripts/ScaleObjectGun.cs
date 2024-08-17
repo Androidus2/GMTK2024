@@ -27,13 +27,11 @@ public class ScaleObjectGun : MonoBehaviour
     private void HandleScaling()
     {
         // If the player is holding an object
-        if (telekinesis.getIsHolding())
+        if (telekinesis.GetIsHolding())
         {
-            // Get the held object
-            GameObject heldObject = telekinesis.getHeldObject();
 
             // Check if the held object has a ScaleObject component
-            ScaleObject scaleObject = heldObject.GetComponent<ScaleObject>();
+            ScaleObject scaleObject = telekinesis.GetScaleObject();
 
             if (scaleObject != null)
             {
