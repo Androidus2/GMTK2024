@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ScaleObjectGun : MonoBehaviour
@@ -10,20 +12,21 @@ public class ScaleObjectGun : MonoBehaviour
     private float scaleAmount = 0.01f;  // Amount to scale the object per key press
     [SerializeField]
     private LayerMask interactableLayer; // Layer mask to define which objects can be scaled
-
     [SerializeField]
-    private Animator anim;
+    private Animator anim;  // Animator for handling visual feedback
 
     // Reference to the Telekinesis script
     private Telekinesis telekinesis;
 
+    // Dictionary to store each object's original scale and mass
+    private Dictionary<GameObject, Vector3> originalScales = new Dictionary<GameObject, Vector3>();
+    private Dictionary<GameObject, float> originalMasses = new Dictionary<GameObject, float>();
+
+    private float resetDuration = 1f;  // Duration for the gradual reset
+
     void Start()
     {
-        // Assuming the Telekinesis script is on the same GameObject
         telekinesis = GetComponent<Telekinesis>();
-
-        // If the Telekinesis script is on a different GameObject, you can find it like this:
-        // telekinesis = GameObject.Find("TelekinesisObject").GetComponent<Telekinesis>();
     }
 
     void Update()
@@ -33,55 +36,57 @@ public class ScaleObjectGun : MonoBehaviour
 
     private void HandleScaling()
     {
-        // If the player is holding an object
         if (telekinesis.GetIsHolding())
         {
-
-            // Check if the held object has a ScaleObject component
             ScaleObject scaleObject = telekinesis.GetScaleObject();
-
             PerformScale(scaleObject);
         }
         else
         {
-            // If the player is not holding an object, perform the normal raycast operation
-
-            // Cast a ray from the center of the screen (camera) forward
             Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, maxDistance, interactableLayer))
             {
-                // Check if the object hit by the ray has the ScaleObject script
                 ScaleObject scaleObject = hit.transform.GetComponent<ScaleObject>();
-
                 PerformScale(scaleObject);
             }
         }
     }
 
-    void PerformScale(ScaleObject scaleObject)
+    private void PerformScale(ScaleObject scaleObject)
     {
         if (scaleObject != null)
         {
+            GameObject obj = scaleObject.gameObject;
+
+            // Store the original scale and mass if they aren't already stored
+            if (!originalScales.ContainsKey(obj))
+            {
+                originalScales[obj] = obj.transform.localScale;
+            }
+            if (!originalMasses.ContainsKey(obj))
+            {
+                originalMasses[obj] = obj.GetComponent<Rigidbody>().mass;
+            }
+
             // Increase/Decrease size
             if (Input.GetKey(KeyCode.Q))
             {
-                Debug.Log("Grow");
                 scaleObject.Scale(Vector3.one * scaleAmount);
+                scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
                 anim.SetBool("Grow", true);
                 anim.SetBool("Shrink", false);
             }
             else if (Input.GetKey(KeyCode.E) && scaleObject.transform.localScale.x > 0.1f)
             {
-                Debug.Log("Shrink");
                 scaleObject.Scale(Vector3.one * -scaleAmount);
+                scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
                 anim.SetBool("Shrink", true);
                 anim.SetBool("Grow", false);
             }
             else
             {
-                Debug.Log("No key pressed");
                 anim.SetBool("Grow", false);
                 anim.SetBool("Shrink", false);
             }
@@ -89,14 +94,38 @@ public class ScaleObjectGun : MonoBehaviour
             // Reset size with R
             if (Input.GetKeyDown(KeyCode.R))
             {
-                scaleObject.ResetScale();
+                StartCoroutine(GradualReset(scaleObject, obj));
             }
         }
         else
         {
-            Debug.Log("No ScaleObject component found on the object");
             anim.SetBool("Grow", false);
             anim.SetBool("Shrink", false);
         }
+    }
+
+    private IEnumerator GradualReset(ScaleObject scaleObject, GameObject obj)
+    {
+        Vector3 currentScale = scaleObject.transform.localScale;
+        Vector3 originalScale = originalScales[obj];
+        float currentMass = scaleObject.GetComponent<Rigidbody>().mass;
+        float originalMass = originalMasses[obj];
+        float elapsedTime = 0f;
+
+        while (elapsedTime < resetDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / resetDuration;
+
+            // Interpolate scale and mass
+            scaleObject.transform.localScale = Vector3.Lerp(currentScale, originalScale, t);
+            scaleObject.GetComponent<Rigidbody>().mass = Mathf.Lerp(currentMass, originalMass, t);
+
+            yield return null;
+        }
+
+        // Ensure final values are set
+        scaleObject.transform.localScale = originalScale;
+        scaleObject.GetComponent<Rigidbody>().mass = originalMass;
     }
 }
