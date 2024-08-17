@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 602609584524793857}
   - component: {fileID: 2919015028425221802}
   - component: {fileID: 598338096542392524}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,11 +430,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.5
-  groundDrag: 5
+  jumpForce: 5
   playerHeight: 2
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 119
   orientation: {fileID: 7323546484078068353}
 --- !u!1 &7360036979449682357
 GameObject:

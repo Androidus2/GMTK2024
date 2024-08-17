@@ -9,8 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed = 7f;
 
     [SerializeField]
-    private float groundDrag = 0.8f;
-
+    private float jumpForce = 5f;
 
     [SerializeField]
     private float playerHeight = 2f;
@@ -24,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float horizontalInput;
     private float verticalInput;
+    private float jumpInput;
 
     private Vector3 moveDirection;
 
@@ -40,26 +40,22 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, groundMask);
 
         HandleInput();
-
-        if (isGrounded)
-        {
-            rb.drag = groundDrag;
-        }
-        else
-        {
-            rb.drag = 0;
-        }
     }
 
     private void HandleInput()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKey(KeyCode.Space) && isGrounded)
+            jumpInput = jumpForce;
+        else
+            jumpInput = rb.velocity.y;
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(rb.velocity.magnitude);
+        Debug.Log(jumpInput);
         MovePlayer();
     }
 
@@ -71,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.VelocityChange);
+
+        rb.velocity = new Vector3(rb.velocity.x, jumpInput, rb.velocity.z);
     }
 
 }
