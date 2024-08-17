@@ -52,6 +52,7 @@ public class Telekinesis : MonoBehaviour
             heldObject = pickObj;
             isHolding = true;
             heldObjectRb = heldObject.GetComponent<Rigidbody>();
+            heldObjectRb.mass = 0.0001f;
 
             // Disable physics while holding
             heldObjectRb.useGravity = false;
@@ -81,6 +82,7 @@ public class Telekinesis : MonoBehaviour
         heldObjectRb.useGravity = true;
         heldObjectRb.drag = 1;
 
+        
         heldObject = null;
         isHolding = false;
 

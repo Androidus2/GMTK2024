@@ -42,7 +42,7 @@ public class ScaleObjectGun : MonoBehaviour
                 {
                     scaleObject.Scale(Vector3.one * scaleAmount);
                 }
-                else if (Input.GetKey(KeyCode.E))
+                else if (Input.GetKey(KeyCode.E) && scaleObject.transform.localScale.x > 0.1f)
                 {
                     scaleObject.Scale(Vector3.one * -scaleAmount);
                 }
