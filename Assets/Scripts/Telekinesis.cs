@@ -2,13 +2,23 @@ using UnityEngine;
 
 public class Telekinesis : MonoBehaviour
 {
-    [SerializeField] private float pickupRange = 5f;         // How far the player can pick up objects from
-    [SerializeField] private float holdDistance = 70f;        // Distance from the player where the object will be held (max)
-    [SerializeField] private float moveSpeed = 10f;          // Speed at which the object moves when held
-    [SerializeField] private Transform holdPosition;         // Position where the object will be held
-    [SerializeField] private Transform playerPosition;       // Position of the player
-    [SerializeField] private LayerMask pickupMask;           // Layer mask for objects that can be picked up
-    [SerializeField] private Camera cam;       
+    [SerializeField]
+    private float pickupRange = 5f;         // How far the player can pick up objects from
+    [SerializeField]
+    private float holdDistance = 70f;        // Distance from the player where the object will be held (max)
+    [SerializeField]
+    private float moveSpeed = 10f;          // Speed at which the object moves when held
+    [SerializeField]
+    private Transform holdPosition;         // Position where the object will be held
+    [SerializeField]
+    private Transform playerPosition;       // Position of the player
+    [SerializeField]
+    private LayerMask pickupMask;           // Layer mask for objects that can be picked up
+    [SerializeField]
+    private Camera cam;
+
+    [SerializeField]
+    private Animator anim;
 
 
     private GameObject heldObject;         // The object currently being held
@@ -70,6 +80,8 @@ public class Telekinesis : MonoBehaviour
 
             // make kinematic
             heldObjectRb.freezeRotation = true;
+
+            anim.SetBool("Hold", true);
         }
     }
 
@@ -105,6 +117,8 @@ public class Telekinesis : MonoBehaviour
         isHolding = false;
 
         heldObjectRb.freezeRotation = false;
+
+        anim.SetBool("Hold", false);
     }
 
     public bool GetIsHolding() 

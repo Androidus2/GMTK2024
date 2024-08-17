@@ -2,10 +2,17 @@ using UnityEngine;
 
 public class ScaleObjectGun : MonoBehaviour
 {
-    [SerializeField] private Camera playerCamera;  // The camera used for aiming
-    [SerializeField] private float maxDistance = 10f;  // Maximum distance for interacting with objects
-    [SerializeField] private float scaleAmount = 0.01f;  // Amount to scale the object per key press
-    [SerializeField] private LayerMask interactableLayer; // Layer mask to define which objects can be scaled
+    [SerializeField]
+    private Camera playerCamera;  // The camera used for aiming
+    [SerializeField]
+    private float maxDistance = 10f;  // Maximum distance for interacting with objects
+    [SerializeField]
+    private float scaleAmount = 0.01f;  // Amount to scale the object per key press
+    [SerializeField]
+    private LayerMask interactableLayer; // Layer mask to define which objects can be scaled
+
+    [SerializeField]
+    private Animator anim;
 
     // Reference to the Telekinesis script
     private Telekinesis telekinesis;
@@ -33,24 +40,7 @@ public class ScaleObjectGun : MonoBehaviour
             // Check if the held object has a ScaleObject component
             ScaleObject scaleObject = telekinesis.GetScaleObject();
 
-            if (scaleObject != null)
-            {
-                // Increase/Decrease size
-                if (Input.GetKey(KeyCode.Q))
-                {
-                    scaleObject.Scale(Vector3.one * scaleAmount);
-                }
-                else if (Input.GetKey(KeyCode.E) && scaleObject.transform.localScale.x > 0.1f)
-                {
-                    scaleObject.Scale(Vector3.one * -scaleAmount);
-                }
-
-                // Reset size with R
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    scaleObject.ResetScale();
-                }
-            }
+            PerformScale(scaleObject);
         }
         else
         {
@@ -65,25 +55,48 @@ public class ScaleObjectGun : MonoBehaviour
                 // Check if the object hit by the ray has the ScaleObject script
                 ScaleObject scaleObject = hit.transform.GetComponent<ScaleObject>();
 
-                if (scaleObject != null)
-                {
-                    // Increase/Decrease size
-                    if (Input.GetKey(KeyCode.Q))
-                    {
-                        scaleObject.Scale(Vector3.one * scaleAmount);
-                    }
-                    else if (Input.GetKey(KeyCode.E))
-                    {
-                        scaleObject.Scale(Vector3.one * -scaleAmount);
-                    }
-
-                    // Reset size with R
-                    if (Input.GetKeyDown(KeyCode.R))
-                    {
-                        scaleObject.ResetScale();
-                    }
-                }
+                PerformScale(scaleObject);
             }
+        }
+    }
+
+    void PerformScale(ScaleObject scaleObject)
+    {
+        if (scaleObject != null)
+        {
+            // Increase/Decrease size
+            if (Input.GetKey(KeyCode.Q))
+            {
+                Debug.Log("Grow");
+                scaleObject.Scale(Vector3.one * scaleAmount);
+                anim.SetBool("Grow", true);
+                anim.SetBool("Shrink", false);
+            }
+            else if (Input.GetKey(KeyCode.E) && scaleObject.transform.localScale.x > 0.1f)
+            {
+                Debug.Log("Shrink");
+                scaleObject.Scale(Vector3.one * -scaleAmount);
+                anim.SetBool("Shrink", true);
+                anim.SetBool("Grow", false);
+            }
+            else
+            {
+                Debug.Log("No key pressed");
+                anim.SetBool("Grow", false);
+                anim.SetBool("Shrink", false);
+            }
+
+            // Reset size with R
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                scaleObject.ResetScale();
+            }
+        }
+        else
+        {
+            Debug.Log("No ScaleObject component found on the object");
+            anim.SetBool("Grow", false);
+            anim.SetBool("Shrink", false);
         }
     }
 }

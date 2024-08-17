@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask groundMask;
     private bool isGrounded;
 
+    [SerializeField]
+    private Animator anim;
+
 
     [SerializeField]
     private Transform orientation;
@@ -40,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, groundMask);
 
         HandleInput();
+
+        anim.SetFloat("Speed", rb.velocity.sqrMagnitude);
+        //Debug.Log(rb.velocity.sqrMagnitude);
     }
 
     private void HandleInput()
@@ -55,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(jumpInput);
         MovePlayer();
     }
 
