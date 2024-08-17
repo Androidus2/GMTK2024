@@ -3,9 +3,10 @@ using UnityEngine;
 public class Telekinesis : MonoBehaviour
 {
     [SerializeField] private float pickupRange = 5f;         // How far the player can pick up objects from
-    [SerializeField] private float holdDistance = 3f;        // Distance from the player where the object will be held
+    [SerializeField] private float holdDistance = 70f;        // Distance from the player where the object will be held (max)
     [SerializeField] private float moveSpeed = 10f;          // Speed at which the object moves when held
     [SerializeField] private Transform holdPosition;         // Position where the object will be held
+    [SerializeField] private Transform playerPosition;       // Position of the player
     [SerializeField] private LayerMask pickupMask;           // Layer mask for objects that can be picked up
     [SerializeField] private Camera cam;       
 
@@ -16,6 +17,7 @@ public class Telekinesis : MonoBehaviour
 
     private float originalScale;
     private float originalMass;
+
 
     void Update()
     {
@@ -77,7 +79,12 @@ public class Telekinesis : MonoBehaviour
         // Move the object towards the target position
         Vector3 direction = targetPosition - heldObject.transform.position;
         heldObjectRb.velocity = direction * moveSpeed;
-        
+
+        // If we get past a certain range we drop the item after a certain delay
+        if(Vector3.Distance(heldObject.transform.position, playerPosition.position) > holdDistance)
+        {
+            DropObject();
+        }
         
     }
 
