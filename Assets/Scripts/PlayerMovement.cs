@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, groundMask);
 
         HandleInput();
-        LimitSpeed();
 
         if (isGrounded)
         {
@@ -72,17 +71,6 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.VelocityChange);
-    }
-
-    private void LimitSpeed()
-    {
-        Vector3 flatVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-
-        if (flatVelocity.magnitude > moveSpeed)
-        {
-            flatVelocity = flatVelocity.normalized * moveSpeed;
-            rb.velocity = new Vector3(flatVelocity.x, rb.velocity.y, flatVelocity.z);
-        }
     }
 
 }
