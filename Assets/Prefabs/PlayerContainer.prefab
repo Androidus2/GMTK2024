@@ -511,7 +511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 4184809760291927871}
   maxDistance: 50
-  scaleAmount: 0.01
+  scaleAmount: 1
   interactableLayer:
     serializedVersion: 2
     m_Bits: 640
@@ -1405,6 +1405,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExcalidirtVFX
       objectReference: {fileID: 0}
+    - target: {fileID: 855995984635233529, guid: f0458f95e73955e47a473298a7953998,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 855995984635233530, guid: f0458f95e73955e47a473298a7953998,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1499,6 +1504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953360102077563007, guid: f0458f95e73955e47a473298a7953998,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
