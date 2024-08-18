@@ -20,6 +20,9 @@ public class Telekinesis : MonoBehaviour
     [SerializeField]
     private Animator anim;
 
+    [SerializeField]
+    private float rotationSpeed = 100f; 
+
 
     private GameObject heldObject;         // The object currently being held
     private ScaleObject scaleObject;
@@ -28,6 +31,8 @@ public class Telekinesis : MonoBehaviour
 
     private float originalScale;
     private float originalMass;
+
+    private int rotationAxis;
 
 
     void Update()
@@ -47,6 +52,25 @@ public class Telekinesis : MonoBehaviour
         if (heldObject != null)
         {
             MoveObject();
+
+            if(Input.GetMouseButtonDown(1)) 
+            {
+                rotationAxis++;
+                if(rotationAxis > 2)
+                {
+                    rotationAxis = 0;
+                }
+            }
+
+            if (Input.GetKey(KeyCode.F) && rotationAxis == 0) {
+                RotateObjectZ();
+            }
+            else if (Input.GetKey(KeyCode.F) && rotationAxis == 1) {
+                RotateObjectY();
+            }
+            else if (Input.GetKey(KeyCode.F) && rotationAxis == 2) {
+                RotateObjectX();
+            }
         }
     }
 
@@ -119,6 +143,22 @@ public class Telekinesis : MonoBehaviour
         heldObjectRb.freezeRotation = false;
 
         anim.SetBool("Hold", false);
+    }
+
+    void RotateObjectZ()
+    {
+        heldObject.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
+        //heldObject.transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime, Space.World);
+    }
+
+    void RotateObjectY()
+    {
+        heldObject.transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime, Space.World);
+    }
+
+    void RotateObjectX()
+    {
+        heldObject.transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime, Space.World);
     }
 
     public bool GetIsHolding() 
