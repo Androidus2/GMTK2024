@@ -99,7 +99,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Power: 4
+    - _Power: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -114,7 +114,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 656.44916, g: 766.9961, b: 3.6179144, a: 1}
-    - _Color_1: {r: 1.0836778, g: 0.7701115, b: 0.097122036, a: 1}
+    - _Color_1: {r: 0.7482192, g: 0.5428853, b: 0.10235076, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
