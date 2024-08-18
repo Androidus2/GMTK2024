@@ -31,7 +31,6 @@ public class Telekinesis : MonoBehaviour
 
     private float originalScale;
     private float originalMass;
-
     private int rotationAxis;
 
 
@@ -148,7 +147,6 @@ public class Telekinesis : MonoBehaviour
     void RotateObjectZ()
     {
         heldObject.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
-        //heldObject.transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime, Space.World);
     }
 
     void RotateObjectY()
