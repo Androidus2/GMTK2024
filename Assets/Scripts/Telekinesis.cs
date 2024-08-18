@@ -16,6 +16,10 @@ public class Telekinesis : MonoBehaviour
     private LayerMask pickupMask;           // Layer mask for objects that can be picked up
     [SerializeField]
     private Camera cam;
+    [SerializeField]
+    private LineRenderer moveBeam;
+    [SerializeField]
+    private Transform beamPosition;
 
     [SerializeField]
     private Animator anim;
@@ -106,6 +110,14 @@ public class Telekinesis : MonoBehaviour
             heldObjectRb.freezeRotation = true;
 
             anim.SetBool("Hold", true);
+
+
+            // for animation
+            beamPosition.position = pickObj.transform.position;
+            moveBeam.SetPosition(1, beamPosition.localPosition);
+            moveBeam.transform.parent.gameObject.SetActive(true);
+
+
         }
     }
 
@@ -118,11 +130,16 @@ public class Telekinesis : MonoBehaviour
         Vector3 direction = targetPosition - heldObject.transform.position;
         heldObjectRb.velocity = direction * moveSpeed;
 
+        beamPosition.position = heldObject.transform.position;
+        moveBeam.SetPosition(1, beamPosition.localPosition);
+
+
         // If we get past a certain range we drop the item after a certain delay
-        if(Vector3.Distance(heldObject.transform.position, playerPosition.position) > holdDistance)
+        if (Vector3.Distance(heldObject.transform.position, playerPosition.position) > holdDistance)
         {
             DropObject();
         }
+
         
     }
 
@@ -143,6 +160,8 @@ public class Telekinesis : MonoBehaviour
         heldObjectRb.freezeRotation = false;
 
         anim.SetBool("Hold", false);
+
+        moveBeam.transform.parent.gameObject.SetActive(false);
     }
 
     void RotateObjectZ()
