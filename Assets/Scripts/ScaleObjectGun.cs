@@ -76,17 +76,21 @@ public class ScaleObjectGun : MonoBehaviour
             }
 
             // Increase/Decrease size
-            if (Input.GetKey(KeyCode.Q))
+            if (Input.GetKey(KeyCode.Q) )
             {
-                scaleObject.Scale(Vector3.one * scaleAmount);
-                //scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
+                scaleObject.Scale(Vector3.one * scaleAmount * Time.deltaTime);
+                if(!telekinesis.GetIsHolding()) {
+                    scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
+                }
                 anim.SetBool("Grow", true);
                 anim.SetBool("Shrink", false);
             }
             else if (Input.GetKey(KeyCode.E) && scaleObject.transform.localScale.x > 0.1f)
             {
-                scaleObject.Scale(Vector3.one * -scaleAmount);
-                //scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
+                scaleObject.Scale(Vector3.one * -scaleAmount * Time.deltaTime);
+                if(!telekinesis.GetIsHolding()) {
+                    scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
+                }
                 anim.SetBool("Shrink", true);
                 anim.SetBool("Grow", false);
             }

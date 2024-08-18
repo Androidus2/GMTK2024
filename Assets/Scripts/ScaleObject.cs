@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ScaleObject : MonoBehaviour
@@ -19,4 +20,6 @@ public class ScaleObject : MonoBehaviour
     {
         transform.localScale = originalScale;
     }
+
+
 }
