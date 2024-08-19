@@ -106,7 +106,7 @@ public class ScaleObjectGun : MonoBehaviour
                 anim.SetBool("Grow", true);
                 anim.SetBool("Shrink", false);
             }
-            else if (Input.GetKey(KeyCode.E) && scaleObject.transform.localScale.x > 0.1f)
+            else if (Input.GetKey(KeyCode.E) && (scaleObject.transform.localScale.x > 0.1f || scaleObject.transform.localScale.y > 0.1f || scaleObject.transform.localScale.z > 0.1f))
             {
                 righHandEffectRenderer.material = growMaterial;
                 righHandEffectRenderer.gameObject.SetActive(true);
