@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform orientation;
 
+    [SerializeField]
+    private LineRenderer leftHandEffect;
+
     private float horizontalInput;
     private float verticalInput;
     private float jumpInput;
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, groundMask);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, (playerHeight / 2 + 0.1f) * transform.localScale.x, groundMask);
 
         HandleInput();
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -63,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         if (Input.GetKey(KeyCode.Space) && isGrounded)
-            jumpInput = jumpForce;
+            jumpInput = jumpForce * Mathf.Pow(transform.localScale.x, 0.3f);
         else
             jumpInput = rb.velocity.y;
     }
@@ -82,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.VelocityChange);
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f * Mathf.Pow(transform.localScale.x, 0.3f), ForceMode.VelocityChange);
 
         rb.velocity = new Vector3(rb.velocity.x, jumpInput, rb.velocity.z);
     }
@@ -91,6 +94,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if((transform.localScale.x > 0.2f && scaleChange.x < 0f) || (transform.localScale.x < 3.99 && scaleChange.x > 0f)) {
             transform.localScale += scaleChange;
+            rb.mass = transform.localScale.x;
+            leftHandEffect.startWidth = transform.localScale.x;
+            leftHandEffect.endWidth = transform.localScale.x;
         }
     
     }

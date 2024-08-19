@@ -84,7 +84,7 @@ public class Telekinesis : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, pickupRange, pickupMask))
+        if (Physics.Raycast(ray, out hit, pickupRange * transform.localScale.x, pickupMask))
         {
             PickupObject(hit.collider.gameObject);
         }
@@ -129,7 +129,7 @@ public class Telekinesis : MonoBehaviour
 
         // Move the object towards the target position
         Vector3 direction = targetPosition - heldObject.transform.position;
-        heldObjectRb.velocity = direction * moveSpeed;
+        heldObjectRb.velocity = direction * moveSpeed * Mathf.Pow(transform.localScale.x, 0.3f);
 
         beamPosition.position = heldObject.transform.position;
         moveBeam.SetPosition(1, beamPosition.localPosition);

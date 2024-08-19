@@ -472,6 +472,7 @@ MonoBehaviour:
     m_Bits: 247
   anim: {fileID: 4651201470305496012}
   orientation: {fileID: 7323546484078068353}
+  leftHandEffect: {fileID: 8995265629535001971}
 --- !u!114 &4421555974549743217
 MonoBehaviour:
   m_ObjectHideFlags: 0
