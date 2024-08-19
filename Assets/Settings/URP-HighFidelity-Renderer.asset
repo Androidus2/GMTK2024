@@ -114,11 +114,11 @@ MonoBehaviour:
   _outlineLayers: {fileID: 0}
   _outlineSettings:
     _outlineSettings: {fileID: 0}
-    _outlineColor: {r: 0.9245283, g: 0.9036294, b: 0.030526895, a: 0.9843137}
-    _outlineWidth: 7
+    _outlineColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 0.9843137}
+    _outlineWidth: 5
     _outlineIntensity: 29.5
     _outlineAlphaCutoff: 0.9
-    _outlineMode: 1
+    _outlineMode: 0
     _filterMode: 1
     _layerMask:
       serializedVersion: 2

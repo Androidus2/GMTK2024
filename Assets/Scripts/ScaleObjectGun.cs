@@ -27,6 +27,11 @@ public class ScaleObjectGun : MonoBehaviour
     [SerializeField]
     private float pulsateScale = 0.1f;  // How much to scale during the pulsate effect
 
+    [SerializeField]
+    private GameObject shrinkText;
+    [SerializeField]
+    private GameObject growText;
+
     // Reference to the Telekinesis script
     private Telekinesis telekinesis;
 
@@ -72,6 +77,14 @@ public class ScaleObjectGun : MonoBehaviour
             {
                 anim.SetBool("Grow", false);
                 anim.SetBool("Shrink", false);
+
+                shrinkText.SetActive(false);
+                growText.SetActive(false);
+            }
+            else
+            {
+                shrinkText.SetActive(false);
+                growText.SetActive(false);
             }
         }
     }
@@ -80,6 +93,9 @@ public class ScaleObjectGun : MonoBehaviour
     {
         if (scaleObject != null)
         {
+            shrinkText.SetActive(true);
+            growText.SetActive(true);
+
             GameObject obj = scaleObject.gameObject;
 
             // Store the original scale and mass if they aren't already stored
@@ -106,7 +122,7 @@ public class ScaleObjectGun : MonoBehaviour
                 anim.SetBool("Grow", true);
                 anim.SetBool("Shrink", false);
             }
-            else if (Input.GetKey(KeyCode.E) && (scaleObject.transform.localScale.x > 0.1f || scaleObject.transform.localScale.y > 0.1f || scaleObject.transform.localScale.z > 0.1f))
+            else if (Input.GetKey(KeyCode.E) && (scaleObject.transform.localScale.x > 0.1f && scaleObject.transform.localScale.y > 0.1f && scaleObject.transform.localScale.z > 0.1f))
             {
                 righHandEffectRenderer.material = growMaterial;
                 righHandEffectRenderer.gameObject.SetActive(true);
@@ -139,6 +155,9 @@ public class ScaleObjectGun : MonoBehaviour
         {
             anim.SetBool("Grow", false);
             anim.SetBool("Shrink", false);
+
+            shrinkText.SetActive(false);
+            growText.SetActive(false);
         }
     }
 

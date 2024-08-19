@@ -27,7 +27,13 @@ public class Telekinesis : MonoBehaviour
     private Animator anim;
 
     [SerializeField]
-    private float rotationSpeed = 100f; 
+    private float rotationSpeed = 100f;
+
+    [SerializeField]
+    private GameObject moveText;
+
+    [SerializeField]
+    private GameObject dropText;
 
 
     private GameObject heldObject;         // The object currently being held
@@ -77,6 +83,22 @@ public class Telekinesis : MonoBehaviour
                 RotateObject(Vector3.forward);
             }
         }
+
+        // if we are not holding an object but we are looking at one in range, show the moveText
+        if(heldObject == null)
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, pickupRange * transform.localScale.x, pickupMask))
+            {
+                moveText.SetActive(true);
+            }
+            else
+            {
+                moveText.SetActive(false);
+            }
+        }
     }
 
     void TryPickup()
@@ -118,7 +140,8 @@ public class Telekinesis : MonoBehaviour
             moveBeam.SetPosition(1, beamPosition.localPosition);
             moveBeam.transform.parent.gameObject.SetActive(true);
 
-
+            moveText.SetActive(false);
+            dropText.SetActive(true);
         }
     }
 
@@ -163,6 +186,8 @@ public class Telekinesis : MonoBehaviour
         anim.SetBool("Hold", false);
 
         moveBeam.transform.parent.gameObject.SetActive(false);
+
+        dropText.SetActive(false);
     }
 
     void RotateObject(Vector3 axis)
