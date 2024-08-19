@@ -109,37 +109,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.722918
+      value: -26.699
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000011920929
+      value: 39.057
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.9909377
+      value: -0.895
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999912
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.0041951197
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
@@ -149,7 +149,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 0.481
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e39d05c67c5a8b4ca00d86117b9f552,
         type: 3}
@@ -252,7 +252,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418113277865915907}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
