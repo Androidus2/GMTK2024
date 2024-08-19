@@ -30,6 +30,11 @@ public class PressurePlate : MonoBehaviour
         }
     }
 
+    public bool GetIsActivated()
+    {
+        return isActivated;
+    }
+
     void OnCollisionExit(Collision collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Pickable") && isActivated)

@@ -58,6 +58,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 93931bf59c48df64ba51c2fff57a9605,
+        type: 3}
+      propertyPath: m_Name
+      value: Large
+      objectReference: {fileID: 0}
     - target: {fileID: -5477749408508380018, guid: 93931bf59c48df64ba51c2fff57a9605,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -125,3 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredMass: 1.7
   maximumMass: 2.2
+  isActivated: 0
+  door: {fileID: 0}

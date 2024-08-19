@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MediumPlate Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4978606624403174158, guid: 1b2c1744cab4b594d9525a805ff6db2e,
+        type: 3}
+      propertyPath: m_Name
+      value: Medium
+      objectReference: {fileID: 0}
     - target: {fileID: 5265071531780368001, guid: 1b2c1744cab4b594d9525a805ff6db2e,
         type: 3}
       propertyPath: m_LocalScale.x
