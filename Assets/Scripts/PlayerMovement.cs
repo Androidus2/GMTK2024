@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -43,6 +44,14 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, groundMask);
 
         HandleInput();
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            ScalePlayer(new Vector3(0.1f, 0.1f, 0.1f));
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            ScalePlayer(new Vector3(-0.1f, -0.1f, -0.1f));
+        }
 
         anim.SetFloat("Speed", rb.velocity.sqrMagnitude);
         //Debug.Log(rb.velocity.sqrMagnitude);
@@ -62,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        
     }
 
     private void MovePlayer()
@@ -74,6 +85,14 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.VelocityChange);
 
         rb.velocity = new Vector3(rb.velocity.x, jumpInput, rb.velocity.z);
+    }
+
+    private void ScalePlayer(Vector3 scaleChange)
+    {
+        if((transform.localScale.x > 0.2f && scaleChange.x < 0f) || (transform.localScale.x < 3.99 && scaleChange.x > 0f)) {
+            transform.localScale += scaleChange;
+        }
+    
     }
 
 }

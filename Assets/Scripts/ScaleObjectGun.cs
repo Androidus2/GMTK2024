@@ -105,6 +105,9 @@ public class ScaleObjectGun : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 StartCoroutine(GradualReset(scaleObject, obj));
+                if(!telekinesis.GetIsHolding()) {
+                    scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj];
+                }
             }
         }
         else
@@ -130,13 +133,13 @@ public class ScaleObjectGun : MonoBehaviour
 
             // Interpolate scale and mass
             scaleObject.transform.localScale = Vector3.Lerp(currentScale, originalScale, t);
-            holdRB.mass = Mathf.Lerp(currentMass, originalMass, t);
+            //holdRB.mass = Mathf.Lerp(currentMass, originalMass, t);
 
             yield return null;
         }
 
         // Ensure final values are set
         scaleObject.transform.localScale = originalScale;
-        holdRB.mass = originalMass;
+        //holdRB.mass = originalMass;
     }
 }

@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3785f2ac40a8764f9b27cdb978f622b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredMass: 1.7
-  maximumMass: 2.2
+  requiredMass: 50
+  maximumMass: 100
   isActivated: 0
-  door: {fileID: 0}

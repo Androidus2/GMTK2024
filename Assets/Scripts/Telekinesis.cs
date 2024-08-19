@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -147,7 +148,7 @@ public class Telekinesis : MonoBehaviour
     {
         // Re-enable physics
         heldObjectRb.useGravity = true;
-        heldObjectRb.mass = originalMass *  (heldObject.transform.localScale.x / originalScale);
+        heldObjectRb.mass = (float)(originalMass *  Math.Pow(heldObject.transform.localScale.x / originalScale, 3));
         originalMass = 0;
         originalScale = 0;
 

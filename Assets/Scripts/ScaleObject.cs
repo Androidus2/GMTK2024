@@ -4,6 +4,7 @@ using UnityEngine;
 public class ScaleObject : MonoBehaviour
 {
     private Vector3 originalScale; // Store the original scale of the object
+    
 
     void Start()
     {

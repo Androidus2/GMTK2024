@@ -91,12 +91,12 @@ PrefabInstance:
     - target: {fileID: 7883246466750376686, guid: 1b2c1744cab4b594d9525a805ff6db2e,
         type: 3}
       propertyPath: maximumMass
-      value: 1.3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7883246466750376686, guid: 1b2c1744cab4b594d9525a805ff6db2e,
         type: 3}
       propertyPath: requiredMass
-      value: 0.8
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -18,12 +18,12 @@ public class DoorOpener : MonoBehaviour
         if(AreAllPressurePlatesActivated() && !isDoorOpen)
         {
             isDoorOpen = true;
-            door.SetTrigger("Change");
+            door.SetTrigger("Change1");
         }
         else if(!AreAllPressurePlatesActivated() && isDoorOpen)
         {
             isDoorOpen = false;
-            door.SetTrigger("Change");
+            door.SetTrigger("Change2");
         }
     }
 
