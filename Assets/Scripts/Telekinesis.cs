@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Telekinesis : MonoBehaviour
 {
@@ -66,13 +67,13 @@ public class Telekinesis : MonoBehaviour
             }
 
             if (Input.GetKey(KeyCode.F) && rotationAxis == 0) {
-                RotateObjectZ();
+                RotateObject(Vector3.up);
             }
             else if (Input.GetKey(KeyCode.F) && rotationAxis == 1) {
-                RotateObjectY();
+                RotateObject(Vector3.right);
             }
             else if (Input.GetKey(KeyCode.F) && rotationAxis == 2) {
-                RotateObjectX();
+                RotateObject(Vector3.forward);
             }
         }
     }
@@ -163,19 +164,11 @@ public class Telekinesis : MonoBehaviour
         moveBeam.transform.parent.gameObject.SetActive(false);
     }
 
-    void RotateObjectZ()
+    void RotateObject(Vector3 axis)
     {
-        heldObject.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
-    }
-
-    void RotateObjectY()
-    {
-        heldObject.transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime, Space.World);
-    }
-
-    void RotateObjectX()
-    {
-        heldObject.transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime, Space.World);
+        if(heldObject != null) {
+            heldObject.transform.Rotate(axis, rotationSpeed * Time.deltaTime, Space.World);
+        }
     }
 
     public bool GetIsHolding() 

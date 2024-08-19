@@ -8,21 +8,22 @@ public class DoorOpener : MonoBehaviour
     private List<PressurePlate> pressurePlates;
 
     [SerializeField]
-    private int rotationAngle;
+    private Animator door;
 
     [SerializeField]
     private bool isDoorOpen = false;
     
     void Update()
     {
-        if (AreAllPressurePlatesActivated() && !isDoorOpen)
+        if(AreAllPressurePlatesActivated() && !isDoorOpen)
         {
-            RotateDoor(rotationAngle);
             isDoorOpen = true;
-        } else if (!AreAllPressurePlatesActivated() && isDoorOpen)
+            door.SetTrigger("Change");
+        }
+        else if(!AreAllPressurePlatesActivated() && isDoorOpen)
         {
-            RotateDoor(-rotationAngle);
             isDoorOpen = false;
+            door.SetTrigger("Change");
         }
     }
 
@@ -38,8 +39,4 @@ public class DoorOpener : MonoBehaviour
         return true;
     }
 
-    private void RotateDoor(int rotationAngle)
-    {
-        transform.Rotate(new Vector3(0, rotationAngle, 0));
-    }
 }

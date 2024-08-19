@@ -13,8 +13,7 @@ public class PressurePlate : MonoBehaviour
     [SerializeField]
     private bool isActivated;
 
-    [SerializeField]
-    private Animator door;
+    
     
     void OnCollisionEnter(Collision collision)
     {   
@@ -25,7 +24,7 @@ public class PressurePlate : MonoBehaviour
             {
                 Debug.Log("Pressure plate activated!");
                 isActivated = true;
-                door.SetTrigger("Change");
+                
             }
         }
     }
@@ -41,7 +40,6 @@ public class PressurePlate : MonoBehaviour
         {
             isActivated = false;
             Debug.Log("Pressure plate deactivated!");
-            door.SetTrigger("Change");
         }
     }
 }

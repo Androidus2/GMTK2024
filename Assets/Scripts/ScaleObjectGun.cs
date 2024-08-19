@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -80,7 +81,7 @@ public class ScaleObjectGun : MonoBehaviour
             {
                 scaleObject.Scale(Vector3.one * scaleAmount * Time.deltaTime);
                 if(!telekinesis.GetIsHolding()) {
-                    scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
+                    scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * MathF.Pow(scaleObject.transform.localScale.x / originalScales[obj].x, 3);
                 }
                 anim.SetBool("Grow", true);
                 anim.SetBool("Shrink", false);
@@ -89,7 +90,7 @@ public class ScaleObjectGun : MonoBehaviour
             {
                 scaleObject.Scale(Vector3.one * -scaleAmount * Time.deltaTime);
                 if(!telekinesis.GetIsHolding()) {
-                    scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * (scaleObject.transform.localScale.x / originalScales[obj].x);
+                    scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * MathF.Pow(scaleObject.transform.localScale.x / originalScales[obj].x, 3);
                 }
                 anim.SetBool("Shrink", true);
                 anim.SetBool("Grow", false);
