@@ -15,6 +15,17 @@ public class ScaleObjectGun : MonoBehaviour
     private LayerMask interactableLayer; // Layer mask to define which objects can be scaled
     [SerializeField]
     private Animator anim;  // Animator for handling visual feedback
+    [SerializeField]
+    private Material shrinkMaterial;
+    [SerializeField]
+    private Material growMaterial;
+    [SerializeField]
+    private MeshRenderer righHandEffectRenderer; // Mesh renderer for the right hand
+
+    [SerializeField]
+    private float pulsateSpeed = 2f;  // Speed of the pulsating effect
+    [SerializeField]
+    private float pulsateScale = 0.1f;  // How much to scale during the pulsate effect
 
     // Reference to the Telekinesis script
     private Telekinesis telekinesis;
@@ -24,15 +35,20 @@ public class ScaleObjectGun : MonoBehaviour
     private Dictionary<GameObject, float> originalMasses = new Dictionary<GameObject, float>();
 
     private float resetDuration = 1f;  // Duration for the gradual reset
+    private Vector3 initialHandEffectScale;
 
     void Start()
     {
         telekinesis = GetComponent<Telekinesis>();
+        righHandEffectRenderer.material = growMaterial;
+        righHandEffectRenderer.gameObject.SetActive(false);
+        initialHandEffectScale = righHandEffectRenderer.transform.localScale; // Store the initial scale
     }
 
     void Update()
     {
         HandleScaling();
+        PulsateEffect();  // Apply pulsating effect
     }
 
     private void HandleScaling()
@@ -52,7 +68,7 @@ public class ScaleObjectGun : MonoBehaviour
                 ScaleObject scaleObject = hit.transform.GetComponent<ScaleObject>();
                 PerformScale(scaleObject);
             }
-            else if(anim.GetBool("Grow") || anim.GetBool("Shrink"))
+            else if (anim.GetBool("Grow") || anim.GetBool("Shrink"))
             {
                 anim.SetBool("Grow", false);
                 anim.SetBool("Shrink", false);
@@ -77,10 +93,14 @@ public class ScaleObjectGun : MonoBehaviour
             }
 
             // Increase/Decrease size
-            if (Input.GetKey(KeyCode.Q) )
+            if (Input.GetKey(KeyCode.Q))
             {
+                righHandEffectRenderer.material = shrinkMaterial;
+                righHandEffectRenderer.gameObject.SetActive(true);
+
                 scaleObject.Scale(Vector3.one * scaleAmount * Time.deltaTime);
-                if(!telekinesis.GetIsHolding()) {
+                if (!telekinesis.GetIsHolding())
+                {
                     scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * MathF.Pow(scaleObject.transform.localScale.x / originalScales[obj].x, 3);
                 }
                 anim.SetBool("Grow", true);
@@ -88,8 +108,12 @@ public class ScaleObjectGun : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.E) && scaleObject.transform.localScale.x > 0.1f)
             {
+                righHandEffectRenderer.material = growMaterial;
+                righHandEffectRenderer.gameObject.SetActive(true);
+
                 scaleObject.Scale(Vector3.one * -scaleAmount * Time.deltaTime);
-                if(!telekinesis.GetIsHolding()) {
+                if (!telekinesis.GetIsHolding())
+                {
                     scaleObject.GetComponent<Rigidbody>().mass = originalMasses[obj] * MathF.Pow(scaleObject.transform.localScale.x / originalScales[obj].x, 3);
                 }
                 anim.SetBool("Shrink", true);
@@ -97,6 +121,7 @@ public class ScaleObjectGun : MonoBehaviour
             }
             else
             {
+                righHandEffectRenderer.gameObject.SetActive(false);
                 anim.SetBool("Grow", false);
                 anim.SetBool("Shrink", false);
             }
@@ -117,6 +142,16 @@ public class ScaleObjectGun : MonoBehaviour
         }
     }
 
+    private void PulsateEffect()
+    {
+        if (righHandEffectRenderer.gameObject.activeSelf)
+        {
+            // Calculate the scale factor using a sine wave
+            float scaleFactor = 1 + Mathf.Sin(Time.time * pulsateSpeed) * pulsateScale;
+            righHandEffectRenderer.transform.localScale = initialHandEffectScale * scaleFactor;
+        }
+    }
+
     private IEnumerator GradualReset(ScaleObject scaleObject, GameObject obj)
     {
         Vector3 currentScale = scaleObject.transform.localScale;
@@ -133,13 +168,13 @@ public class ScaleObjectGun : MonoBehaviour
 
             // Interpolate scale and mass
             scaleObject.transform.localScale = Vector3.Lerp(currentScale, originalScale, t);
-            //holdRB.mass = Mathf.Lerp(currentMass, originalMass, t);
+            // holdRB.mass = Mathf.Lerp(currentMass, originalMass, t);
 
             yield return null;
         }
 
         // Ensure final values are set
         scaleObject.transform.localScale = originalScale;
-        //holdRB.mass = originalMass;
+        // holdRB.mass = originalMass;
     }
 }

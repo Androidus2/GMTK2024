@@ -27,7 +27,7 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - Color_c9e0c543c8fa40e0bf07e1c5ca2ae593: {r: 8.518557, g: 56.790382, b: 135.58704,
+    - Color_c9e0c543c8fa40e0bf07e1c5ca2ae593: {r: 0.86490244, g: 5.766017, b: 13.766365,
         a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8853654559505697006
