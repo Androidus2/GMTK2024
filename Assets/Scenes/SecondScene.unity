@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 63cbe73194ae9d44e862cd1d5c64a1a5,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -13586,6 +13587,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 491422356}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c2e2d8c2ba08baa4aa0c44887ad368eb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 491422357}
   m_SourcePrefab: {fileID: 100100000, guid: c2e2d8c2ba08baa4aa0c44887ad368eb, type: 3}
 --- !u!1 &491422355 stripped
 GameObject:
@@ -13605,6 +13610,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f7169c0927fb740b6445e80958bd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &491422357
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491422355}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &495189066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49969,7 +49996,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.1312705, y: 1.9542837, z: 0.22840977}
   m_Center: {x: 0.029850304, y: 0.010006428, z: 0.009787083}
