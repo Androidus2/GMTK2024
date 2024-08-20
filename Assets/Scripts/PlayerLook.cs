@@ -42,4 +42,15 @@ public class PlayerLook : MonoBehaviour
 
         Physics.SyncTransforms();
     }
+
+    public void SetSensitivity(float sensitivity)
+    {
+        mouseSensitivity = sensitivity;
+        Debug.Log(mouseSensitivity);
+    }
+
+    public float GetSensitivity()
+    {
+        return mouseSensitivity;
+    }
 }

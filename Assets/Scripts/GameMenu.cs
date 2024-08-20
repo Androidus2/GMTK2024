@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +20,18 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private GameObject tip;
 
+    [SerializeField]
+    private PlayerLook playerLook;
+
+    [SerializeField]
+    private TMP_InputField sensitivityInput;
+
     public static bool isPaused = false;
+
+    private void Start()
+    {
+        sensitivityInput.text = playerLook.GetSensitivity().ToString();
+    }
 
     private void Update()
     {
@@ -59,6 +71,12 @@ public class GameMenu : MonoBehaviour
     {
         Debug.Log("fjdsbjkhfbsjdhbf");
         gameObject.SetActive(false);
+    }
+
+    public void ChangeSensitivity(string sensitivity)
+    {
+        float sens = float.Parse(sensitivity);
+        playerLook.SetSensitivity(sens);
     }
 
 }
