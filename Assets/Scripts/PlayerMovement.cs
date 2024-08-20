@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, (playerHeight / 2 + 0.1f) * transform.localScale.x, groundMask);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, (playerHeight / 2 + 0.3f) * transform.localScale.x, groundMask);
 
         HandleInput();
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
