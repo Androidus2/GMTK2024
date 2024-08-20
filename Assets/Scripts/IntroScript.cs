@@ -46,6 +46,7 @@ public class IntroScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !isLoading)
         {
+            isLoading = true;
             clickToAdvanceText.gameObject.SetActive(false);
             if(currentText < texts.Length)
             {
@@ -59,11 +60,7 @@ public class IntroScript : MonoBehaviour
         }
         if(Input.GetMouseButtonDown(1))
         {
-            SceneManager.LoadScene("SecondScene");
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("ThirdScene");
+            SceneManager.LoadScene("StartingScene");
         }
     }
 

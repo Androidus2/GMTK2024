@@ -16,17 +16,28 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private GameObject controls;
 
+    [SerializeField]
+    private GameObject tip;
+
     public static bool isPaused = false;
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            menu.SetActive(!menu.activeSelf);
-            isPaused = menu.activeSelf;
-            volumeSlider.value = SoundManager.GetInstance().GetGlobalVolume();
-            Cursor.visible = menu.activeSelf;
-            Cursor.lockState = menu.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
+            if (tip && tip.activeSelf)
+            {
+                tip.SetActive(false);
+            }
+            else
+            {
+
+                menu.SetActive(!menu.activeSelf);
+                isPaused = menu.activeSelf;
+                volumeSlider.value = SoundManager.GetInstance().GetGlobalVolume();
+                Cursor.visible = menu.activeSelf;
+                Cursor.lockState = menu.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
+            }
         }
         if(Input.GetKeyDown(KeyCode.Tab))
         {
@@ -46,6 +57,7 @@ public class GameMenu : MonoBehaviour
 
     public void CloseTip(GameObject gameObject)
     {
+        Debug.Log("fjdsbjkhfbsjdhbf");
         gameObject.SetActive(false);
     }
 
