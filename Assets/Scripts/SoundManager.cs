@@ -40,8 +40,6 @@ public class SoundManager : MonoBehaviour
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
-
-            SceneManager.LoadScene("StartingScene");
         }
         else
         {
