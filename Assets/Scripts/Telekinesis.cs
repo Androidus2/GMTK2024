@@ -173,7 +173,7 @@ public class Telekinesis : MonoBehaviour
         
     }
 
-    void DropObject()
+    public void DropObject()
     {
         // Re-enable physics
         heldObjectRb.useGravity = true;

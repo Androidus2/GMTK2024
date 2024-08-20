@@ -63,7 +63,7 @@ public class IntroScript : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("TestScene");
+            SceneManager.LoadScene("ThirdScene");
         }
     }
 
