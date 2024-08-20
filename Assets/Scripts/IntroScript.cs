@@ -61,6 +61,10 @@ public class IntroScript : MonoBehaviour
         {
             SceneManager.LoadScene("SecondScene");
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("TestScene");
+        }
     }
 
     IEnumerator LoadText()

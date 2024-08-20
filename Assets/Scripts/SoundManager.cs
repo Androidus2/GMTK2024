@@ -118,6 +118,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public float GetGlobalVolume()
+    {
+        return volumeMultiplier;
+    }
+
     public void SetGlobalPitch(float pitch)
     {
         for(int i=0; i<soundClips.Length; i++)
