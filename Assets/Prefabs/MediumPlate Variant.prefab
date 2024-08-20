@@ -91,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 7883246466750376686, guid: 1b2c1744cab4b594d9525a805ff6db2e,
         type: 3}
       propertyPath: maximumMass
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7883246466750376686, guid: 1b2c1744cab4b594d9525a805ff6db2e,
         type: 3}

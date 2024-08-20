@@ -21,6 +21,8 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
+        if (GameMenu.isPaused)
+            return;
         HandleMouseLook();
     }
 

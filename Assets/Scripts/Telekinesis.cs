@@ -48,6 +48,10 @@ public class Telekinesis : MonoBehaviour
 
     void Update()
     {
+        if(GameMenu.isPaused)
+            return;
+
+
         if (Input.GetMouseButtonDown(0)) // Left mouse button for pickup
         {
             if (heldObject == null)

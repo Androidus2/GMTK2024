@@ -52,6 +52,9 @@ public class ScaleObjectGun : MonoBehaviour
 
     void Update()
     {
+        if(GameMenu.isPaused)
+            return;
+
         HandleScaling();
         PulsateEffect();  // Apply pulsating effect
     }

@@ -86,7 +86,7 @@ PrefabInstance:
     - target: {fileID: 7153874353634685248, guid: 310b09d9ec1976949b7b3a7cc440c6ed,
         type: 3}
       propertyPath: maximumMass
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7153874353634685248, guid: 310b09d9ec1976949b7b3a7cc440c6ed,
         type: 3}
