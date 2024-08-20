@@ -72,7 +72,7 @@ public class PressurePlate : MonoBehaviour
     IEnumerator PressureFeedbackTooLight()
     {
         text.text = "Object is too light!";
-        text.color = Color.red;
+        text.color = Color.cyan;
         panel.SetActive(true);
         yield return new WaitForSeconds(1f);
         panel.SetActive(false);
