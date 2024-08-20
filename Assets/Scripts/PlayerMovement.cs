@@ -49,11 +49,11 @@ public class PlayerMovement : MonoBehaviour
         HandleInput();
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            ScalePlayer(new Vector3(0.1f, 0.1f, 0.1f));
+            ScalePlayer(new Vector3(10f, 10f, 10f));
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
-            ScalePlayer(new Vector3(-0.1f, -0.1f, -0.1f));
+            ScalePlayer(new Vector3(-10f, -10f, -10f));
         }
 
         anim.SetFloat("Speed", rb.velocity.sqrMagnitude);
@@ -64,6 +64,21 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        if((horizontalInput != 0 || verticalInput != 0) && isGrounded)
+        {
+            if(!SoundManager.GetInstance().GetClipIsPlaying("Footsteps"))
+            {
+                SoundManager.GetInstance().PlaySound("Footsteps");
+            }
+        }
+        if((horizontalInput == 0 && verticalInput == 0) || !isGrounded)
+        {
+            if(SoundManager.GetInstance().GetClipIsPlaying("Footsteps"))
+            {
+                SoundManager.GetInstance().StopSound("Footsteps");
+            }
+        }
 
         if (Input.GetKey(KeyCode.Space) && isGrounded)
             jumpInput = jumpForce * Mathf.Pow(transform.localScale.x, 0.3f);
@@ -93,12 +108,37 @@ public class PlayerMovement : MonoBehaviour
     private void ScalePlayer(Vector3 scaleChange)
     {
         if((transform.localScale.x > 0.2f && scaleChange.x < 0f) || (transform.localScale.x < 3.99 && scaleChange.x > 0f)) {
-            transform.localScale += scaleChange;
+            transform.localScale += scaleChange * Time.deltaTime;
             rb.mass = transform.localScale.x;
             leftHandEffect.startWidth = transform.localScale.x;
             leftHandEffect.endWidth = transform.localScale.x;
+
+            ChangePitch();
+        }
+        else
+        {
         }
     
+    }
+
+    private void ChangePitch()
+    {
+        // when the player's x localScale is 1, pitch should be 1
+        // when the player's x localScale is 4, pitch should be 1.5
+        // when the player's x localScale is 0.1, pitch should be 0.5
+
+        float pitch = 1;
+        if(transform.localScale.x > 1)
+        {
+            pitch = Mathf.Lerp(1, 1.5f, (transform.localScale.x - 1) / 4);
+        }
+        else if(transform.localScale.x < 1)
+        {
+            pitch = Mathf.Lerp(0.5f, 1, transform.localScale.x - 0.1f);
+        }
+
+        SoundManager.GetInstance().SetGlobalPitch(pitch);
+
     }
 
 }

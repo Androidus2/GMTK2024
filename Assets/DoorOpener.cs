@@ -11,6 +11,12 @@ public class DoorOpener : MonoBehaviour
     private Animator door;
 
     [SerializeField]
+    private AudioSource doorOpenSound;
+
+    [SerializeField]
+    private AudioSource doorCloseSound;
+
+    [SerializeField]
     private bool isDoorOpen = false;
     
     void Update()
@@ -19,11 +25,13 @@ public class DoorOpener : MonoBehaviour
         {
             isDoorOpen = true;
             door.SetTrigger("Change1");
+            doorOpenSound.Play();
         }
         else if(!AreAllPressurePlatesActivated() && isDoorOpen)
         {
             isDoorOpen = false;
             door.SetTrigger("Change2");
+            doorCloseSound.Play();
         }
     }
 

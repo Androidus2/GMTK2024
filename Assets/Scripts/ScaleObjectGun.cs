@@ -80,11 +80,29 @@ public class ScaleObjectGun : MonoBehaviour
 
                 shrinkText.SetActive(false);
                 growText.SetActive(false);
+
+                if(SoundManager.GetInstance().GetClipIsPlaying("Grow"))
+                {
+                    SoundManager.GetInstance().StopSound("Grow");
+                }
+                if(SoundManager.GetInstance().GetClipIsPlaying("Shrink"))
+                {
+                    SoundManager.GetInstance().StopSound("Shrink");
+                }
             }
             else
             {
                 shrinkText.SetActive(false);
                 growText.SetActive(false);
+
+                if(SoundManager.GetInstance().GetClipIsPlaying("Grow"))
+                {
+                    SoundManager.GetInstance().StopSound("Grow");
+                }
+                if(SoundManager.GetInstance().GetClipIsPlaying("Shrink"))
+                {
+                    SoundManager.GetInstance().StopSound("Shrink");
+                }
             }
         }
     }
@@ -121,6 +139,13 @@ public class ScaleObjectGun : MonoBehaviour
                 }
                 anim.SetBool("Grow", true);
                 anim.SetBool("Shrink", false);
+
+                if(!SoundManager.GetInstance().GetClipIsPlaying("Grow"))
+                    SoundManager.GetInstance().PlaySound("Grow");
+                if(SoundManager.GetInstance().GetClipIsPlaying("Shrink"))
+                {
+                    SoundManager.GetInstance().StopSound("Shrink");
+                }
             }
             else if (Input.GetKey(KeyCode.E) && (scaleObject.transform.localScale.x > 0.1f && scaleObject.transform.localScale.y > 0.1f && scaleObject.transform.localScale.z > 0.1f))
             {
@@ -134,12 +159,28 @@ public class ScaleObjectGun : MonoBehaviour
                 }
                 anim.SetBool("Shrink", true);
                 anim.SetBool("Grow", false);
+
+                if (!SoundManager.GetInstance().GetClipIsPlaying("Shrink"))
+                    SoundManager.GetInstance().PlaySound("Shrink");
+                if(SoundManager.GetInstance().GetClipIsPlaying("Grow"))
+                {
+                    SoundManager.GetInstance().StopSound("Grow");
+                }
             }
             else
             {
                 righHandEffectRenderer.gameObject.SetActive(false);
                 anim.SetBool("Grow", false);
                 anim.SetBool("Shrink", false);
+
+                if(SoundManager.GetInstance().GetClipIsPlaying("Grow"))
+                {
+                    SoundManager.GetInstance().StopSound("Grow");
+                }
+                if(SoundManager.GetInstance().GetClipIsPlaying("Shrink"))
+                {
+                    SoundManager.GetInstance().StopSound("Shrink");
+                }
             }
 
             // Reset size with R
@@ -158,6 +199,15 @@ public class ScaleObjectGun : MonoBehaviour
 
             shrinkText.SetActive(false);
             growText.SetActive(false);
+
+            if(SoundManager.GetInstance().GetClipIsPlaying("Grow"))
+            {
+                SoundManager.GetInstance().StopSound("Grow");
+            }
+            if(SoundManager.GetInstance().GetClipIsPlaying("Shrink"))
+            {
+                SoundManager.GetInstance().StopSound("Shrink");
+            }
         }
     }
 

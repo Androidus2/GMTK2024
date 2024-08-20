@@ -142,6 +142,8 @@ public class Telekinesis : MonoBehaviour
 
             moveText.SetActive(false);
             dropText.SetActive(true);
+
+            SoundManager.GetInstance().PlaySound("Magic");
         }
     }
 
@@ -188,6 +190,11 @@ public class Telekinesis : MonoBehaviour
         moveBeam.transform.parent.gameObject.SetActive(false);
 
         dropText.SetActive(false);
+
+        if(SoundManager.GetInstance().GetClipIsPlaying("Magic"))
+        {
+            SoundManager.GetInstance().StopSound("Magic");
+        }
     }
 
     void RotateObject(Vector3 axis)
