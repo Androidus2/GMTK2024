@@ -13,6 +13,9 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private Slider volumeSlider;
 
+    [SerializeField]
+    private GameObject controls;
+
     public static bool isPaused = false;
 
     private void Update()
@@ -25,6 +28,10 @@ public class GameMenu : MonoBehaviour
             Cursor.visible = menu.activeSelf;
             Cursor.lockState = menu.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
         }
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            controls.SetActive(!controls.activeSelf);
+        }
     }
 
     public void ResetLevel()
@@ -35,6 +42,11 @@ public class GameMenu : MonoBehaviour
     public void SetVolume(float volume)
     {
         SoundManager.GetInstance().SetGlobalVolume(volume);
+    }
+
+    public void CloseTip(GameObject gameObject)
+    {
+        gameObject.SetActive(false);
     }
 
 }
