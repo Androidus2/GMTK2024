@@ -17,10 +17,10 @@ If you wish to download the project and mess with it, you can easily fork the re
 ## Team
 
 The project was created by 4 people:
-- Alex Turculet
-- Filip Turcu
-- George Borozan
-- Andrei Avram
+- [Alex Turculet](https://github.com/Androidus2)
+- [Filip Turcu](https://github.com/DoubleF9)
+- [George Borozan](https://github.com/Geutzzu)
+- [Andrei Avram](https://github.com/andrei7avram)
 
 ## Screenshots
 
