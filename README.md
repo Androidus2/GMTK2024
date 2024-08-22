@@ -12,7 +12,7 @@ If you wish to play the game, there is both a WebGL, as well as a Windows versio
 
 ## Installation
 
-If you wish to download the project and mess with it, you can easily fork the repository, but you will require a Unity install. The project was created on Unity version 2022.3.22f1 and we do not guarantee it will work on other versions. You are free to use any of our graphical assets or code for your projects, but keep in mind that the background music is not made by us and its license is in the Assets/Sounds/Music folder.
+If you wish to download the project and mess with it, you can easily clone the repository, but you will require a Unity install. The project was created on Unity version 2022.3.22f1 and we do not guarantee it will work on other versions. You are free to use any of our graphical assets or code for your projects, but keep in mind that the background music is not made by us and its license is in the Assets/Sounds/Music folder.
 
 ## Team
 
